@@ -400,9 +400,6 @@
       color: var(--ink);
     }
     .form-grid input:focus { border-color: rgba(181,23,200,.42); box-shadow: 0 0 0 4px rgba(181,23,200,.08); }
-    .success-message { display:none; margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: var(--lilac); color: var(--purple-dark); font-weight: 700; line-height: 1.4; }
-    .modal.sent .lead-form { display: none; }
-    .modal.sent .success-message { display: block; }
 
     .fade-up { opacity: 0; transform: translateY(16px); animation: fadeUp .6s ease forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
@@ -991,7 +988,6 @@
           <button class="btn btn-primary pulse" type="submit">Quero receber minha análise</button>
         </div>
       </form>
-      <div class="success-message">Recebemos seus dados. Em breve um especialista da Total IP entrará em contato.</div>
     </div>
   </div>
 
@@ -1004,7 +1000,6 @@
       const openButtons = document.querySelectorAll('.js-open-modal');
       function openModal() {
         if (!modalOverlay || !modal) return;
-        modal.classList.remove('sent');
         modalOverlay.classList.add('open');
         modalOverlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -1028,15 +1023,37 @@
         if (event.key === 'Escape') closeModal();
       });
       const WEBHOOK_URL = 'https://agencia-firma-n8n.ew0aju.easypanel.host/webhook/e33a6348-04ed-4392-b524-bd11fe9b16e6';
+      const PERSONAL_EMAIL_DOMAINS = [
+        'gmail.com', 'googlemail.com', 'hotmail.com', 'hotmail.com.br', 'outlook.com', 'outlook.com.br',
+        'yahoo.com', 'yahoo.com.br', 'live.com', 'live.com.br', 'icloud.com', 'me.com', 'aol.com',
+        'uol.com.br', 'bol.com.br', 'terra.com.br', 'ig.com.br', 'msn.com', 'protonmail.com', 'proton.me',
+        'gmx.com', 'mail.com', 'yopmail.com', 'zoho.com', 'r7.com', 'globo.com', 'oi.com.br'
+      ];
+      const emailInput = form ? form.querySelector('input[name="email"]') : null;
+      if (emailInput) {
+        emailInput.addEventListener('input', function () {
+          emailInput.setCustomValidity('');
+        });
+      }
 
       if (form && modal) {
         form.addEventListener('submit', function (event) {
           event.preventDefault();
           const formData = new FormData(form);
+          const emailValue = (formData.get('email') || '').trim();
+          const emailDomain = emailValue.split('@')[1] ? emailValue.split('@')[1].toLowerCase() : '';
+
+          if (emailInput && PERSONAL_EMAIL_DOMAINS.includes(emailDomain)) {
+            emailInput.setCustomValidity('Use um e-mail corporativo, não pessoal (ex: gmail, hotmail, yahoo).');
+            emailInput.reportValidity();
+            return;
+          }
+          if (emailInput) emailInput.setCustomValidity('');
+
           const payload = {
             Nome: formData.get('nome') || '',
             WhatsApp: formData.get('whatsapp') || '',
-            'E-mail': formData.get('email') || '',
+            'E-mail': emailValue,
             instituicao: formData.get('instituicao') || '',
             cargo: formData.get('cargo') || '',
             volume: formData.get('volume') || '',
@@ -1051,18 +1068,11 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           })
-            .then(function () {
-              modal.classList.add('sent');
-            })
             .catch(function (error) {
               console.error('Falha ao enviar formulário para o webhook:', error);
-              modal.classList.add('sent');
             })
             .finally(function () {
-              if (submitButton) submitButton.disabled = false;
-              setTimeout(function () {
-                window.location.href = 'https://wa.me/551133553400';
-              }, 2000);
+              window.location.href = 'https://wa.me/551133553400';
             });
         });
       }
