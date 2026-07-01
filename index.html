@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Total IP + IA | Atendimento inteligente para saúde</title>
+  <meta name="description" content="IA para clínicas, laboratórios e hospitais: agendamentos, confirmações, convênios e atendimento ao paciente automatizados." />
+  <meta property="og:title" content="Total IP + IA | Atendimento para clínicas e instituições de saúde" />
+  <meta property="og:description" content="Automatize agendamentos, confirmações, convênios e atendimento ao paciente com IA integrada aos seus sistemas." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAF7FB;
+      --bg-soft: #FFFDFE;
+      --card: #FFFFFF;
+      --ink: #17121C;
+      --heading: #100B16;
+      --soft: #54485E;
+      --muted: #74677C;
+      --purple: #B517C8;
+      --purple-dark: #6F0F7F;
+      --pink: #D946EF;
+      --lilac: #F8E7FB;
+      --border: rgba(181, 23, 200, 0.14);
+      --shadow: 0 18px 46px rgba(111, 15, 127, 0.10);
+      --shadow-soft: 0 10px 28px rgba(111, 15, 127, 0.08);
+      --radius-xl: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 84% -5%, rgba(217,70,239,0.11), transparent 34%),
+        radial-gradient(circle at 8% 20%, rgba(181,23,200,0.07), transparent 28%),
+        var(--bg);
+    }
+    img, svg { display: block; max-width: 100%; }
+    button, input { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(100% - 40px, 1120px);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      padding: 22px 0;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .logo-link { display: inline-flex; align-items: center; min-width: 0; }
+    .logo-img {
+      width: auto;
+      height: 38px;
+      object-fit: contain;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+      box-shadow: 0 14px 30px rgba(181,23,200,0.22), 0 0 0 0 rgba(217,70,239,0.24);
+    }
+    .btn-primary.pulse { animation: ctaPulse 2s ease-in-out infinite; }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 18px 42px rgba(181,23,200,0.32); }
+    .btn-secondary {
+      color: var(--purple-dark);
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-light {
+      background: #fff;
+      color: var(--purple-dark);
+      box-shadow: 0 14px 28px rgba(42, 8, 49, .14);
+    }
+    .btn-ghost {
+      min-height: 44px;
+      padding: 0 17px;
+      color: var(--purple-dark);
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 20px rgba(111,15,127,0.07);
+      font-size: 14px;
+    }
+
+    @keyframes ctaPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 14px 30px rgba(181,23,200,0.22), 0 0 0 0 rgba(217,70,239,0.24); }
+      50% { transform: scale(1.025); box-shadow: 0 18px 38px rgba(181,23,200,0.30), 0 0 0 10px rgba(217,70,239,0); }
+    }
+
+    .hero { padding: 48px 0 38px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+      gap: clamp(40px, 6vw, 72px);
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--lilac);
+      color: var(--purple-dark);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .eyebrow-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--pink); }
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--heading);
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      font-weight: 900;
+    }
+    h1 { font-size: clamp(2.55rem, 6vw, 4.7rem); max-width: 10.6ch; }
+    .lead {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 1.3vw, 1.13rem);
+      line-height: 1.55;
+      max-width: 54ch;
+    }
+    .support { margin: 12px 0 0; color: var(--soft); font-size: 0.96rem; line-height: 1.52; max-width: 52ch; }
+    .hero-actions { display: flex; align-items: center; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+    .hero-card {
+      width: min(100%, 470px);
+      margin-left: auto;
+      padding: 22px;
+      border-radius: 34px;
+      background: linear-gradient(180deg, #FFFDFE 0%, #F8ECFA 100%);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .doctor-frame {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 390px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(248,231,251,.82));
+      overflow: hidden;
+    }
+    .doctor-frame::after {
+      content: "";
+      position: absolute;
+      inset: auto 16% 0;
+      height: 34%;
+      background: radial-gradient(ellipse at center, rgba(111,15,127,.14), transparent 66%);
+      pointer-events: none;
+    }
+    .doctor-img {
+      position: relative;
+      z-index: 2;
+      width: min(88%, 318px);
+      height: auto;
+      object-fit: contain;
+      object-position: center bottom;
+      align-self: end;
+      filter: drop-shadow(0 18px 32px rgba(111,15,127,0.12));
+    }
+    .hero-pills {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: var(--lilac);
+      border: 1px solid var(--border);
+      color: var(--purple-dark);
+      font-size: 0.78rem;
+      line-height: 1.16;
+      font-weight: 800;
+      text-align: center;
+    }
+    .status-line { display: flex; align-items: center; gap: 8px; margin-top: 14px; color: var(--soft); font-size: 13px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--pink); }
+
+    .proof { padding: 0 0 56px; }
+    .proof-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .proof-card, .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+    }
+    .proof-card { padding: 20px 18px; }
+    .proof-card strong { display: block; color: var(--purple-dark); font-size: 1.65rem; line-height: 1; letter-spacing: -0.04em; }
+    .proof-card span { display: block; margin-top: 6px; color: var(--soft); font-size: .9rem; line-height: 1.26; }
+
+    .section { padding: 28px 0 62px; }
+    .section-head { max-width: 570px; margin-bottom: 26px; }
+    .section h2 { font-size: clamp(2rem, 3.6vw, 3rem); }
+    .section-desc { margin: 13px 0 0; color: var(--muted); line-height: 1.55; font-size: 1rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .feature { padding: 20px; transition: transform .22s ease, box-shadow .22s ease; }
+    .feature:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff;
+      font-weight: 900;
+      font-size: 15px;
+    }
+    .feature h3 { margin-top: 15px; font-size: 1rem; letter-spacing: -0.025em; }
+    .feature p { margin: 7px 0 0; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+
+    .wide-card { padding: clamp(24px, 5vw, 42px); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+    .small-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: var(--lilac);
+      border: 1px solid var(--border);
+      color: var(--purple-dark);
+      font-size: .89rem;
+      font-weight: 700;
+    }
+
+    .security-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr); gap: 48px; align-items: start; }
+    .check-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .check-list li { display: flex; align-items: center; gap: 10px; border: 1px solid var(--border); background: var(--card); border-radius: 18px; padding: 13px 14px; color: var(--ink); font-weight: 600; font-size: .93rem; }
+    .check { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, var(--purple), var(--pink)); font-size: 12px; font-weight: 900; }
+
+    .faq-wrap { max-width: 760px; }
+    .faq-item { margin-top: 12px; overflow: hidden; }
+    .faq-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 20px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      color: var(--heading);
+      font-weight: 800;
+      text-align: left;
+    }
+    .faq-plus { width: 30px; height: 30px; border-radius: 999px; display: grid; place-items: center; background: var(--lilac); color: var(--purple-dark); flex: 0 0 auto; transition: transform .2s ease; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
+    .faq-answer p { margin: 0; padding: 0 20px 20px; color: var(--muted); line-height: 1.55; font-size: .95rem; }
+    .faq-item.open .faq-answer { max-height: 150px; }
+    .faq-item.open .faq-plus { transform: rotate(45deg); }
+
+    .final-cta { padding: 20px 0 56px; }
+    .cta-box {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 28px;
+      align-items: center;
+      padding: clamp(28px, 5vw, 52px);
+      border-radius: 34px;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+      box-shadow: 0 24px 58px rgba(181,23,200,.24);
+      overflow: hidden;
+    }
+    .cta-box h2, .cta-box p { color: #fff; }
+    .cta-box h2 { font-size: clamp(2rem, 3.8vw, 3.25rem); }
+    .cta-box p { margin: 13px 0 0; color: rgba(255,255,255,.92); line-height: 1.55; }
+    .cta-action { display: flex; justify-content: flex-end; }
+
+    .footer {
+      padding: 50px 0 32px;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,.54);
+    }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 28px; }
+    .footer-title { margin: 0 0 10px; font-weight: 900; color: var(--heading); letter-spacing: -0.02em; }
+    .footer p { margin: 0; color: var(--soft); line-height: 1.55; }
+    .footer a { color: var(--soft); transition: color .2s ease, transform .2s ease; }
+    .footer a:hover { color: var(--purple-dark); }
+    .socials { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .social-link {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 18px rgba(111,15,127,.07);
+      color: var(--purple-dark);
+    }
+    .social-link:hover { transform: translateY(-2px); color: var(--pink); }
+    .social-link svg { width: 19px; height: 19px; fill: currentColor; }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .88rem;
+    }
+    .privacy-link { color: var(--purple-dark) !important; font-weight: 700; }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(23,18,28,.48);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      width: min(100%, 520px);
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      border-radius: 30px;
+      background: #fff;
+      box-shadow: 0 30px 80px rgba(23,18,28,.26);
+      padding: 24px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fff;
+      cursor: pointer;
+      color: var(--purple-dark);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .modal h2 { padding-right: 44px; font-size: 1.8rem; }
+    .modal p { color: var(--muted); line-height: 1.5; }
+    .form-grid { display: grid; gap: 12px; margin-top: 18px; }
+    .form-grid input {
+      width: 100%;
+      height: 52px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      padding: 0 15px;
+      outline: none;
+      color: var(--ink);
+    }
+    .form-grid input:focus { border-color: rgba(181,23,200,.42); box-shadow: 0 0 0 4px rgba(181,23,200,.08); }
+    .success-message { display:none; margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: var(--lilac); color: var(--purple-dark); font-weight: 700; line-height: 1.4; }
+    .modal.sent .lead-form { display: none; }
+    .modal.sent .success-message { display: block; }
+
+    .fade-up { opacity: 0; transform: translateY(16px); animation: fadeUp .6s ease forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      .hero-grid, .security-grid, .cta-box { grid-template-columns: 1fr; }
+      .hero-card { margin-left: 0; }
+      .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cta-action { justify-content: flex-start; }
+      h1 { max-width: 11.5ch; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 40px, 1120px); }
+      .site-header { padding: 18px 0; }
+      .logo-img { height: 31px; }
+      .btn-ghost { display: none; }
+      .hero { padding: 34px 0 28px; }
+      h1 { font-size: clamp(2.45rem, 12vw, 3.5rem); max-width: 10.8ch; }
+      .hero-actions { align-items: stretch; }
+      .hero-actions .btn { width: 100%; }
+      .hero-card { width: 100%; padding: 16px; border-radius: 28px; }
+      .doctor-frame { min-height: 300px; }
+      .doctor-img { width: min(86%, 240px); }
+      .proof-grid { grid-template-columns: 1fr; }
+      .proof-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .proof-card span { text-align: right; max-width: 13ch; }
+      .features-grid { grid-template-columns: 1fr; }
+      .check-list { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { align-items: flex-start; flex-direction: column; }
+      .cta-box { border-radius: 28px; }
+      .cta-box .btn { width: 100%; }
+      .modal { padding: 22px 18px; border-radius: 24px; }
+    }
+
+    @media (max-width: 390px) {
+      .hero-pills { grid-template-columns: 1fr; }
+      .pill { min-height: 38px; }
+      h1 { font-size: 2.34rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+
+<style id="totalip-headline-mobile-comfort-v16">
+  /* Headline mais confortável, principalmente no celular */
+  main h1 {
+    font-size: clamp(2.05rem, 4.8vw, 3.05rem) !important;
+    line-height: 1.07 !important;
+    letter-spacing: -0.045em !important;
+    max-width: 13.5ch !important;
+    text-wrap: balance !important;
+  }
+
+  @media (max-width: 767px) {
+    main h1 {
+      font-size: clamp(1.72rem, 7.1vw, 2.12rem) !important;
+      line-height: 1.13 !important;
+      letter-spacing: -0.035em !important;
+      max-width: 15ch !important;
+      text-wrap: balance !important;
+    }
+
+    main h1 + p {
+      margin-top: 1rem !important;
+    }
+  }
+
+  @media (max-width: 390px) {
+    main h1 {
+      font-size: clamp(1.62rem, 7vw, 1.95rem) !important;
+      line-height: 1.15 !important;
+      max-width: 15.5ch !important;
+    }
+  }
+</style>
+
+<style id="totalip-conversion-upgrade-v23">
+  .proof-authority {
+    margin: 18px 0 0;
+    max-width: 850px;
+    color: var(--soft);
+    font-size: .98rem;
+    line-height: 1.55;
+  }
+
+  .split-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+    gap: clamp(24px, 5vw, 54px);
+    align-items: center;
+  }
+
+  .compact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .mini-card {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    color: var(--heading);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .visual-card {
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: clamp(24px, 4vw, 36px);
+    border-radius: 32px;
+    background:
+      radial-gradient(circle at 80% 10%, rgba(217,70,239,.14), transparent 30%),
+      linear-gradient(180deg, #fff 0%, #F8E7FB 100%);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    color: var(--soft);
+  }
+
+  .visual-card strong {
+    color: var(--heading);
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+  }
+
+  .visual-card span {
+    max-width: 34ch;
+    color: var(--muted);
+    line-height: 1.45;
+    font-size: .94rem;
+  }
+
+  .placeholder-icon {
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: #fff;
+    font-size: 1.55rem;
+    font-weight: 900;
+    box-shadow: 0 16px 34px rgba(181,23,200,.18);
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .target-section .wide-card {
+    background:
+      radial-gradient(circle at 90% 0%, rgba(217,70,239,.10), transparent 34%),
+      #fff;
+  }
+
+  .bullet-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .bullet-list > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 14px;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--heading);
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(111,15,127,.06);
+  }
+
+  .inline-cta {
+    margin-top: 22px;
+  }
+
+  .security-placeholder {
+    min-height: 210px;
+    margin-top: 24px;
+  }
+
+  .form-grid select {
+    width: 100%;
+    height: 52px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    padding: 0 15px;
+    outline: none;
+    color: var(--ink);
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .form-grid select:focus {
+    border-color: rgba(181,23,200,.42);
+    box-shadow: 0 0 0 4px rgba(181,23,200,.08);
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 220px;
+  }
+
+  @media (max-width: 900px) {
+    .split-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .visual-card {
+      min-height: 260px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .proof-authority {
+      font-size: .92rem;
+    }
+
+    .compact-grid,
+    .features-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .mini-card {
+      min-height: 52px;
+    }
+
+    .visual-card {
+      min-height: 220px;
+      border-radius: 26px;
+    }
+
+    .bullet-list > div {
+      align-items: flex-start;
+    }
+
+    .inline-cta {
+      width: 100%;
+    }
+
+    .form-grid select {
+      height: 52px;
+    }
+  }
+</style>
+
+
+<style id="totalip-image-caption-fix-v25">
+  .visual-card.has-image {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #fff !important;
+  }
+
+  .visual-card.has-image .section-image {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 260px !important;
+    max-height: 360px !important;
+    object-fit: cover !important;
+    display: block !important;
+    flex: 0 0 auto !important;
+  }
+
+  .visual-card.has-image .image-caption {
+    padding: 16px 18px 18px !important;
+    color: var(--soft) !important;
+    font-size: .94rem !important;
+    line-height: 1.42 !important;
+    font-weight: 600 !important;
+    background: #fff !important;
+    border-top: 1px solid var(--border) !important;
+  }
+
+  .security-placeholder.has-image .section-image {
+    min-height: 210px !important;
+  }
+
+  @media (max-width: 640px) {
+    .visual-card.has-image .section-image {
+      min-height: 220px !important;
+      max-height: 300px !important;
+    }
+
+    .security-placeholder.has-image .section-image {
+      min-height: 200px !important;
+    }
+
+    .visual-card.has-image .image-caption {
+      padding: 14px 16px 16px !important;
+      font-size: .9rem !important;
+    }
+  }
+</style>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo-link" href="#" aria-label="Total IP + IA">
+        <img class="logo-img" src="data:image/png;base64,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" alt="Total IP + IA" />
+      </a>
+      <button class="btn btn-ghost js-open-modal" type="button">Falar com especialista</button>
+    </div>
+  </header>
+
+  
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="fade-up">
+          <span class="eyebrow"><span class="eyebrow-dot"></span>IA para saúde</span>
+          <h1>Sua clínica pode estar perdendo pacientes antes mesmo da recepção atender.</h1>
+          <p class="lead">Automatize atendimentos, agendamentos, confirmações, convênios e etapas da jornada do paciente com IA integrada à sua operação.</p>
+          <p class="support">Atendimento mais rápido, equipe menos sobrecarregada e jornada do paciente mais previsível.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary pulse js-open-modal" type="button">Quero descobrir onde perco pacientes</button>
+            <a class="btn btn-secondary" href="#como-funciona">Ver como a IA funciona</a>
+          </div>
+        </div>
+
+        <div class="hero-card fade-up" style="animation-delay:100ms">
+          <div class="doctor-frame">
+            <img class="doctor-img" src="medico.png" alt="Médico profissional" />
+          </div>
+          <div class="hero-pills" aria-label="Benefícios rápidos">
+            <span class="pill">Atendimento 24h</span>
+            <span class="pill">Menos no-show</span>
+            <span class="pill">Convênios validados</span>
+            <span class="pill">Agenda preenchida</span>
+          </div>
+          <div class="status-line"><span class="status-dot"></span>IA ativa • integrada à sua operação</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof" aria-label="Provas rápidas">
+      <div class="container">
+        <div class="proof-grid">
+          <div class="proof-card"><strong>20+</strong><span>anos de mercado</span></div>
+          <div class="proof-card"><strong>108+</strong><span>integrações</span></div>
+          <div class="proof-card"><strong>350+</strong><span>marcas atendidas</span></div>
+        </div>
+        <p class="proof-authority">Com mais de 20 anos de mercado, a Total IP integra tecnologia, atendimento e automação para ajudar operações de saúde a escalar sem perder controle, segurança e qualidade na jornada do paciente.</p>
+      </div>
+    </section>
+
+    <section class="section problem-section" aria-label="Problemas no atendimento">
+      <div class="container split-grid">
+        <div>
+          <div class="section-head">
+            <h2>Enquanto sua equipe tenta dar conta, pacientes estão desistindo.</h2>
+            <p class="section-desc">WhatsApp cheio, telefone tocando, confirmações atrasadas e convênios travando a jornada fazem o paciente procurar outra opção antes mesmo de ser atendido.</p>
+          </div>
+          <div class="compact-grid">
+            <article class="mini-card"><span>WhatsApp congestionado</span></article>
+            <article class="mini-card"><span>Telefone tocando sem parar</span></article>
+            <article class="mini-card"><span>Pacientes sem resposta</span></article>
+            <article class="mini-card"><span>Exames sem confirmação</span></article>
+            <article class="mini-card"><span>No-show aumentando</span></article>
+            <article class="mini-card"><span>Equipe sobrecarregada</span></article>
+          </div>
+        </div>
+        <div class="visual-card image-placeholder has-image">
+          <img class="section-image" src="1.png" alt="Operação de atendimento em clínica" />
+          <div class="image-caption">Recepção sobrecarregada, WhatsApp cheio ou central de atendimento.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <div class="section-head">
+          <h2>Como a IA ajuda sua operação</h2>
+          <p class="section-desc">Ela assume tarefas repetitivas do atendimento e mantém sua equipe focada no cuidado humano.</p>
+        </div>
+        <div class="features-grid">
+          <article class="card feature"><div class="icon">1</div><h3>Atende pacientes</h3><p>Resposta imediata no WhatsApp e telefone, 24 horas por dia.</p></article>
+          <article class="card feature"><div class="icon">2</div><h3>Agenda consultas</h3><p>Marca, remarca e cancela direto na sua agenda.</p></article>
+          <article class="card feature"><div class="icon">3</div><h3>Confirma exames</h3><p>Confirmações automáticas que reduzem o no-show.</p></article>
+          <article class="card feature"><div class="icon">4</div><h3>Valida convênios</h3><p>Verifica elegibilidade antes da consulta.</p></article>
+          <article class="card feature"><div class="icon">5</div><h3>Orienta antes do procedimento</h3><p>Envia instruções, documentos e informações importantes.</p></article>
+          <article class="card feature"><div class="icon">6</div><h3>Acompanha o pós-atendimento</h3><p>Automatiza retornos, pesquisas e próximos passos.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section target-section" aria-label="Para quem é">
+      <div class="container">
+        <div class="card wide-card">
+          <h2>Feita para operações de saúde que não podem perder atendimento.</h2>
+          <p class="section-desc">Indicado para clínicas, laboratórios, hospitais e centrais que lidam com alto volume de pacientes e precisam ganhar velocidade sem abrir mão de segurança, controle e cuidado humano.</p>
+          <div class="pill-row">
+            <span class="small-pill">Clínicas com agenda ativa</span>
+            <span class="small-pill">Laboratórios com alto volume</span>
+            <span class="small-pill">Hospitais e redes de saúde</span>
+            <span class="small-pill">Centrais de atendimento</span>
+            <span class="small-pill">Equipes comerciais e recepção</span>
+            <span class="small-pill">WhatsApp e telefone sobrecarregados</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section difference-section" aria-label="Diferenciação da solução">
+      <div class="container split-grid">
+        <div>
+          <div class="section-head">
+            <h2>Não é apenas um robô respondendo mensagens.</h2>
+            <p class="section-desc">A Total IP + IA estrutura uma jornada inteligente de atendimento, conectada aos seus canais, sistemas e processos internos. A IA pode atender, direcionar, agendar, confirmar, validar informações e registrar interações com mais controle e rastreabilidade.</p>
+          </div>
+          <div class="bullet-list">
+            <div><span class="check">✓</span>Atendimento automatizado com contexto</div>
+            <div><span class="check">✓</span>Integração com sistemas da operação</div>
+            <div><span class="check">✓</span>Registro e rastreabilidade das interações</div>
+            <div><span class="check">✓</span>Fluxos personalizados para saúde</div>
+            <div><span class="check">✓</span>Apoio à equipe humana, não substituição</div>
+          </div>
+          <button class="btn btn-primary js-open-modal inline-cta" type="button">Quero descobrir onde perco pacientes</button>
+        </div>
+        <div class="visual-card image-placeholder has-image">
+          <img class="section-image" src="2.png" alt="Mockup da IA integrada à operação" />
+          <div class="image-caption">Dashboard, fluxo de atendimento ou integração com sistemas.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section security-section">
+      <div class="container security-grid">
+        <div class="section-head">
+          <h2>Integrada, governada e segura</h2>
+          <p class="section-desc">A solução foi pensada para ambientes sensíveis, com rastreabilidade, governança e integração com sistemas de saúde.</p>
+          <div class="visual-card security-placeholder has-image">
+            <img class="section-image" src="3.png" alt="Segurança, tecnologia e integração na saúde" />
+            <div class="image-caption">Tecnologia, proteção de dados ou operação conectada.</div>
+          </div>
+        </div>
+        <ul class="check-list">
+          <li><span class="check">✓</span>LGPD</li>
+          <li><span class="check">✓</span>Auditoria</li>
+          <li><span class="check">✓</span>Controle de jornada</li>
+          <li><span class="check">✓</span>Integração com sistemas de saúde</li>
+          <li><span class="check">✓</span>CRM</li>
+          <li><span class="check">✓</span>Prontuário eletrônico</li>
+          <li><span class="check">✓</span>Rastreabilidade</li>
+          <li><span class="check">✓</span>Governança</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container faq-wrap">
+        <h2>Dúvidas rápidas</h2>
+        <div class="faq-list">
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>Substitui minha equipe?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>Não. Reduz tarefas repetitivas para sua equipe focar no cuidado humano.</p></div>
+          </article>
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>Funciona com meu sistema?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>Sim. A Total IP possui integrações com sistemas de saúde, CRMs e prontuários.</p></div>
+          </article>
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>É seguro?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>A solução considera governança, rastreabilidade e contexto regulatório.</p></div>
+          </article>
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>A IA funciona junto com minha equipe?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>Sim. Ela reduz tarefas repetitivas e deixa sua equipe focada nos casos que exigem atenção humana.</p></div>
+          </article>
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>Preciso trocar meu sistema atual?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>Não necessariamente. A solução pode ser integrada aos sistemas já usados pela instituição.</p></div>
+          </article>
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>A IA atende WhatsApp e telefone?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>Sim. A jornada pode envolver canais como WhatsApp, telefone e integrações com sistemas internos.</p></div>
+          </article>
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>Serve para clínicas pequenas?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>Serve principalmente para operações que já têm volume de atendimento, agenda ativa ou equipe sobrecarregada.</p></div>
+          </article>
+          <article class="card faq-item">
+            <button class="faq-button" type="button"><span>Como funciona a análise?</span><span class="faq-plus">+</span></button>
+            <div class="faq-answer"><p>Um especialista entende sua jornada atual, identifica gargalos e mostra onde a IA pode reduzir perdas e melhorar o atendimento.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Descubra onde sua instituição está perdendo pacientes.</h2>
+            <p>Receba uma análise para identificar gargalos no atendimento, agendamento, confirmações, convênios e etapas da jornada que podem estar reduzindo sua conversão.</p>
+          </div>
+          <div class="cta-action">
+            <button class="btn btn-light js-open-modal" type="button">Quero receber minha análise</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-title">Contato</h3>
+          <p><a href="tel:+551133553400">(11) 3355-3400</a><br><a href="mailto:comercial@totalip.com.br">comercial@totalip.com.br</a></p>
+        </div>
+        <div>
+          <h3 class="footer-title">Localização</h3>
+          <p>Rua Barão de Itapetininga, 140,<br>República, São Paulo/SP</p>
+        </div>
+        <div>
+          <h3 class="footer-title">Redes sociais</h3>
+          <p>Acompanhe a Total IP+IA nos canais oficiais.</p>
+          <div class="socials" aria-label="Redes sociais">
+            <a class="social-link" href="https://www.facebook.com/totalip/?locale=pt_BR" target="_blank" rel="noopener noreferrer" aria-label="Facebook Total IP">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.48 17.52 2 11.94 2S2 6.48 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.9h2.77l-.44 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94Z"/></svg>
+            </a>
+            <a class="social-link" href="https://www.instagram.com/totalip.oficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Total IP">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+            </a>
+            <a class="social-link" href="https://br.linkedin.com/in/totalip" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Total IP">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.35 8h4.3v14H.35V8Zm7.3 0h4.12v1.91h.06c.57-1.08 1.98-2.22 4.08-2.22 4.36 0 5.16 2.87 5.16 6.6V22h-4.3v-6.83c0-1.63-.03-3.73-2.27-3.73-2.28 0-2.63 1.78-2.63 3.61V22h-4.3V8Z" transform="translate(1.5 .5) scale(.96)"/></svg>
+            </a>
+            <a class="social-link" href="https://www.youtube.com/@totalipbr" target="_blank" rel="noopener noreferrer" aria-label="YouTube Total IP">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.12C19.53 3.58 12 3.58 12 3.58s-7.53 0-9.4.5A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.12c1.87.5 9.4.5 9.4.5s7.53 0 9.4-.5a3 3 0 0 0 2.1-2.12A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8ZM9.6 15.57V8.43L15.82 12 9.6 15.57Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Total IP+IA | CNPJ: 08.931.227/0001-62 | Todos os direitos reservados</span>
+        <a class="privacy-link" href="/politica-de-privacidade">Política de privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="leadModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" aria-label="Fechar modal">×</button>
+      <h2 id="modalTitle">Veja onde sua instituição pode estar perdendo pacientes</h2>
+      <p>Preencha os dados e um especialista da Total IP vai analisar os principais pontos da sua jornada: atendimento, agendamento, confirmações, convênios e possíveis gargalos que fazem pacientes desistirem.</p>
+      <form class="lead-form">
+        <div class="form-grid">
+          <input type="text" name="nome" placeholder="Nome" required />
+          <input type="tel" name="whatsapp" placeholder="WhatsApp" required />
+          <input type="text" name="instituicao" placeholder="Nome da instituição" required />
+          <input type="text" name="cargo" placeholder="Cargo, opcional" />
+          <select name="volume" required>
+            <option value="" selected disabled>Volume médio de atendimentos por dia</option>
+            <option>Até 50</option>
+            <option>50 a 200</option>
+            <option>200 a 500</option>
+            <option>Mais de 500</option>
+          </select>
+          <button class="btn btn-primary pulse" type="submit">Quero receber minha análise</button>
+        </div>
+      </form>
+      <div class="success-message">Recebemos seus dados. Em breve um especialista da Total IP entrará em contato.</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modalOverlay = document.getElementById('leadModal');
+      const modal = modalOverlay ? modalOverlay.querySelector('.modal') : null;
+      const closeButton = modalOverlay ? modalOverlay.querySelector('.modal-close') : null;
+      const form = modalOverlay ? modalOverlay.querySelector('.lead-form') : null;
+      const openButtons = document.querySelectorAll('.js-open-modal');
+      function openModal() {
+        if (!modalOverlay || !modal) return;
+        modal.classList.remove('sent');
+        modalOverlay.classList.add('open');
+        modalOverlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        const firstInput = modalOverlay.querySelector('input');
+        setTimeout(() => firstInput && firstInput.focus(), 80);
+      }
+      function closeModal() {
+        if (!modalOverlay) return;
+        modalOverlay.classList.remove('open');
+        modalOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      openButtons.forEach(btn => btn.addEventListener('click', openModal));
+      if (closeButton) closeButton.addEventListener('click', closeModal);
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', function (event) {
+          if (event.target === modalOverlay) closeModal();
+        });
+      }
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeModal();
+      });
+      if (form && modal) {
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          modal.classList.add('sent');
+        });
+      }
+
+      document.querySelectorAll('.faq-button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const item = button.closest('.faq-item');
+          if (item) item.classList.toggle('open');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
