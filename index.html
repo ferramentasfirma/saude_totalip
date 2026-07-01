@@ -1035,11 +1035,12 @@
           const formData = new FormData(form);
           const payload = {
             Nome: formData.get('nome') || '',
-            Whatsapp: formData.get('whatsapp') || '',
+            WhatsApp: formData.get('whatsapp') || '',
             'E-mail': formData.get('email') || '',
             instituicao: formData.get('instituicao') || '',
             cargo: formData.get('cargo') || '',
-            volume: formData.get('volume') || ''
+            volume: formData.get('volume') || '',
+            url: window.location.href
           };
 
           const submitButton = form.querySelector('button[type="submit"]');
