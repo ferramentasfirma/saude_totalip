@@ -978,6 +978,7 @@
         <div class="form-grid">
           <input type="text" name="nome" placeholder="Nome" required />
           <input type="tel" name="whatsapp" placeholder="WhatsApp" required />
+          <input type="email" name="email" placeholder="E-mail" required />
           <input type="text" name="instituicao" placeholder="Nome da instituição" required />
           <input type="text" name="cargo" placeholder="Cargo, opcional" />
           <select name="volume" required>
@@ -1026,10 +1027,39 @@
       document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') closeModal();
       });
+      const WEBHOOK_URL = 'https://agencia-firma-n8n.ew0aju.easypanel.host/webhook/e33a6348-04ed-4392-b524-bd11fe9b16e6';
+
       if (form && modal) {
         form.addEventListener('submit', function (event) {
           event.preventDefault();
-          modal.classList.add('sent');
+          const formData = new FormData(form);
+          const payload = {
+            Nome: formData.get('nome') || '',
+            Whatsapp: formData.get('whatsapp') || '',
+            'E-mail': formData.get('email') || '',
+            instituicao: formData.get('instituicao') || '',
+            cargo: formData.get('cargo') || '',
+            volume: formData.get('volume') || ''
+          };
+
+          const submitButton = form.querySelector('button[type="submit"]');
+          if (submitButton) submitButton.disabled = true;
+
+          fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+            .then(function () {
+              modal.classList.add('sent');
+            })
+            .catch(function (error) {
+              console.error('Falha ao enviar formulário para o webhook:', error);
+              modal.classList.add('sent');
+            })
+            .finally(function () {
+              if (submitButton) submitButton.disabled = false;
+            });
         });
       }
 
